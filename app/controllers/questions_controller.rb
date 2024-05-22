@@ -12,15 +12,32 @@ class QuestionsController < ApplicationController
       @question = Question.new
   end
 
+  # 質問の登録
+  def create
+    # 初期化
+    @question = Question.new(question_params)
+    #  保存
+    if @question.save
+      redirect_to @question, notice: "質問を登録しました"
+    else
+      render 'new'
+    end
+  end
+
   # 質問の編集
   def edit
   end
 
-  # 質問の編集
+  # 質問の更新
   def update
   end
 
   # 質問の削除
   def destroy
+  end
+
+  private
+  def question_params
+    params.require(:question).permit(:title, :name, :content)
   end
 end
